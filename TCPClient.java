@@ -1,5 +1,7 @@
 import java.net.*;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
 import java.io.*;
  
 // Le uma linha do teclado
@@ -16,17 +18,17 @@ public class TCPClient {
         String hostname = args[0];
         int port = Integer.parseInt(args[1]);
  
-        Scanner sc = new Scanner(System.in);
-
         try (Socket socket = new Socket(hostname, port)) {
  
+            Path path = Path.of("arquivo1.txt");
             
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
- 
-            String line = sc.nextLine();
 
-            writer.println(line); 
+            for(String string : Files.lines(path).collect(Collectors.toList())) {
+                System.out.println(string);
+                writer.println(string);
+            }
  
         } catch (UnknownHostException ex) {
  

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.stream.Collectors;
  
 // Recebe uma mensagem de algum cliente
 // Imprime mensagem na tela
@@ -24,9 +25,10 @@ public class TCPServer {
                 System.out.println("New client connected: " + socket.getRemoteSocketAddress()); 
  
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String line = in.readLine();
 
-                System.out.println("Mensagem recebida: " + line);
+                for(String line: in.lines().collect(Collectors.toList())) {
+                    System.out.println("Mensagem recebida: " + line);
+                }               
             }
  
         } catch (IOException ex) {
