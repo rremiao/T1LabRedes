@@ -32,7 +32,7 @@ class UDPServer {
                   InetAddress IPAddress = receivePacket.getAddress();
                   int receivePort = receivePacket.getPort();
 
-                  System.out.println("Mensagem recebida: " + sentence);
+                  System.out.println(sentence);
                }
       }
 }

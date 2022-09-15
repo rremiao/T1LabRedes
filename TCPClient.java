@@ -20,7 +20,7 @@ public class TCPClient {
  
         try (Socket socket = new Socket(hostname, port)) {
  
-            Path path = Path.of("arquivo1.txt");
+            Path path = Path.of("Lorem.txt");
             
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);

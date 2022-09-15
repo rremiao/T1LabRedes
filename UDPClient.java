@@ -4,6 +4,9 @@
 
 import java.io.*; // classes para input e output streams e
 import java.net.*;// DatagramaSocket,InetAddress,DatagramaPacket
+import java.nio.file.Path;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 class UDPClient {
    public static void main(String args[]) throws Exception
@@ -17,7 +20,11 @@ class UDPClient {
       int port = Integer.parseInt(args[1]);
 
       // cria o stream do teclado
-      BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+      Path path = Path.of("Lorem.txt");
+      File file = path.toFile();
+      InputStream targetStream = new FileInputStream(file);
+
+      BufferedReader inFromUser = new BufferedReader(new InputStreamReader(targetStream));
 
       // declara socket cliente
       DatagramSocket clientSocket = new DatagramSocket();
@@ -29,14 +36,17 @@ class UDPClient {
       byte[] receiveData = new byte[1024];
 
       // le uma linha do teclado
-      String sentence = inFromUser.readLine();
-      sendData = sentence.getBytes();
-
+      for(String string : inFromUser.lines().collect(Collectors.toList())) {
+         System.out.println(string);
+         String sentence = string;
+         sendData = sentence.getBytes();
+         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+         clientSocket.send(sendPacket);
+      }      
+      
       // cria pacote com o dado, o endereco do server e porta do servidor
-      DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 
       //envia o pacote
-      clientSocket.send(sendPacket);
 
       // fecha o cliente
       clientSocket.close();
