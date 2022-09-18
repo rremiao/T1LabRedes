@@ -3,9 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.io.*;
- 
-// Le uma linha do teclado
-// Envia a linha digitada ao servidor
 
 public class TCPClient {
  
@@ -20,7 +17,7 @@ public class TCPClient {
  
         try (Socket socket = new Socket(hostname, port)) {
  
-            Path path = Path.of("Lorem.txt");
+            Path path = Path.of("arquivo1.txt");
             
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);

@@ -1,9 +1,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.stream.Collectors;
- 
-// Recebe uma mensagem de algum cliente
-// Imprime mensagem na tela
 
 public class TCPServer {
  
